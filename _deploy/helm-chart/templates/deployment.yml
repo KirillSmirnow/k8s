@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name}}
+spec:
+  replicas: {{.Values.replicas}}
+  selector:
+    matchLabels:
+      service: {{.Release.Name}}
+  template:
+    metadata:
+      labels:
+        service: {{.Release.Name}}
+    spec:
+      containers:
+        - name: main
+          image: {{.Values.image}}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: REGISTRY_URLS
+              value: http://{{.Values.publicHost}}/registry1/eureka,http://{{.Values.publicHost}}/registry2/eureka

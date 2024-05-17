@@ -1,0 +1,2 @@
+image: k8s/hello
+replicas: 3

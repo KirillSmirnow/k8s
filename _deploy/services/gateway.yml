@@ -1,0 +1,2 @@
+image: k8s/gateway
+replicas: 2

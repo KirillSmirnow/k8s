@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: gateway
+                port:
+                  number: 8080
+          - path: /registry1(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: registry1
+                port:
+                  number: 8080
+          - path: /registry2(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: registry2
+                port:
+                  number: 8080

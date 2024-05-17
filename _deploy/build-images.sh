@@ -2,7 +2,7 @@
 
 IMAGE_PREFIX="k8s/"
 
-dockerfile="$PWD/Dockerfile"
+dockerfile="$PWD/image/Dockerfile"
 
 for dir in ../*; do
   if [[ -f "$dir/gradlew" ]]; then
