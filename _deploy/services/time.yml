@@ -1,2 +1,2 @@
 image: k8s/time
-replicas: 4
+replicas: 2

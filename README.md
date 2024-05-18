@@ -19,7 +19,8 @@ export PUBLIC_HOST=192.168.0.118
 
 ```bash
 minikube delete
-minikube start --cpus=8 --memory=4G
+minikube start --cpus=8 --memory=8G
+minikube addons enable metrics-server
 minikube addons enable ingress
 ```
 
@@ -45,5 +46,17 @@ minikube addons enable ingress
 ### Tunnel to Host
 
 ```bash
-minikube tunnel --bind-address="$PUBLIC_HOST"
+minikube tunnel --bind-address="0.0.0.0"
+```
+
+### Check
+
+```bash
+open http://localhost/api/hello
+```
+
+### Dashboard
+
+```bash
+minikube dashboard
 ```
