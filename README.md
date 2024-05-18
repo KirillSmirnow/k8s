@@ -7,6 +7,10 @@
 * helm
 * kubectl
 
+## Components
+
+![components](_res/components.png)
+
 ## Deploy
 
 ### Set Public IP Address of Your Host
