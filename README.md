@@ -2,6 +2,7 @@
 
 ## Requirements
 
+* java
 * docker
 * minikube
 * helm

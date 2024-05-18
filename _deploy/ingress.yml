@@ -15,18 +15,18 @@ spec:
               service:
                 name: gateway
                 port:
-                  number: 8080
+                  name: main
           - path: /registry1(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
                 name: registry1
                 port:
-                  number: 8080
+                  name: main
           - path: /registry2(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
                 name: registry2
                 port:
-                  number: 8080
+                  name: main

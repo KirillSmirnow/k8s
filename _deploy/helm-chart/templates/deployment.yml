@@ -19,3 +19,7 @@ spec:
           env:
             - name: REGISTRY_URLS
               value: http://{{.Values.publicHost}}/registry1/eureka,http://{{.Values.publicHost}}/registry2/eureka
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health

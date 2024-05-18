@@ -5,5 +5,8 @@ eureka:
   client:
     service-url:
       defaultZone: ${REGISTRY_URLS}
+    registry-fetch-interval-seconds: 2
   instance:
     prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 3
