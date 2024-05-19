@@ -4,6 +4,7 @@ spring:
 eureka:
   server:
     expected-client-renewal-interval-seconds: 1
+    eviction-interval-timer-in-ms: 1000
   client:
     service-url:
       defaultZone: ${REGISTRY_URLS}
