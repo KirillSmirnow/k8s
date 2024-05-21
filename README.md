@@ -2,23 +2,17 @@
 
 ## Requirements
 
-* java
+* java 21
 * docker
-* minikube
-* helm
-* kubectl
+* minikube (`brew install minikube`)
+* kubectl (included in minikube)
+* helm (`brew install helm`)
 
 ## Components
 
 ![components](_res/components.png)
 
 ## Deploy
-
-### Set Public IP Address of Your Host
-
-```bash
-export PUBLIC_HOST=192.168.0.118
-```
 
 ### Reset Minikube
 
@@ -51,7 +45,7 @@ minikube addons enable ingress
 ### Tunnel to Host
 
 ```bash
-minikube tunnel --bind-address="0.0.0.0"
+minikube tunnel
 ```
 
 ### Check

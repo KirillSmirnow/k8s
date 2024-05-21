@@ -8,7 +8,7 @@ for file in services/*; do
   else
     cmd="install"
   fi
-  helm "$cmd" "$service" ./helm-chart -f "$file" --set "publicHost=$PUBLIC_HOST"
+  helm "$cmd" "$service" ./helm-chart -f "$file"
 done
 
 kubectl apply -f ingress.yml
