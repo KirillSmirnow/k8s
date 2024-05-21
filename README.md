@@ -59,3 +59,12 @@ open http://localhost/api/red/hello
 ```bash
 minikube dashboard
 ```
+
+### Switch Default Namespace
+
+```bash
+(
+  cd _deploy
+  ./switch-default-namespace.sh ${COLOR:-green}
+)
+```
