@@ -38,7 +38,7 @@ minikube addons enable ingress
 ```bash
 (
   cd _deploy
-  ./deploy-services.sh
+  ./deploy-services.sh ${COLOR:-red}
 )
 ```
 
@@ -51,7 +51,7 @@ minikube tunnel
 ### Check
 
 ```bash
-open http://localhost/api/hello
+open http://localhost/api/red/hello
 ```
 
 ### Dashboard

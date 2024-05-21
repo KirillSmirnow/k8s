@@ -1,7 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress
+  name: {{.Release.Name}}
+  namespace: {{.Release.Namespace}}
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -9,17 +10,10 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api/hello(/|$)(.*)
+          - path: /api/{{.Release.Namespace}}/{{.Release.Name}}(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
-                name: hello
-                port:
-                  name: main
-          - path: /api/time(/|$)(.*)
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: time
+                name: {{.Release.Name}}
                 port:
                   name: main
