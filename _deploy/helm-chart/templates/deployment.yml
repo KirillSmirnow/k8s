@@ -16,9 +16,6 @@ spec:
         - name: main
           image: {{.Values.image}}
           imagePullPolicy: IfNotPresent
-          env:
-            - name: REGISTRY_URLS
-              value: http://registry1:8080/eureka,http://registry2:8080/eureka
           readinessProbe:
             httpGet:
               port: 8080

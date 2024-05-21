@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 
-@FeignClient("time")
+@FeignClient(name = "time", url = "time:8080")
 public interface TimeClient {
 
     @GetMapping

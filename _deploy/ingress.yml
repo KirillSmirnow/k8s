@@ -9,10 +9,17 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api(/|$)(.*)
+          - path: /api/hello(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
-                name: gateway
+                name: hello
+                port:
+                  name: main
+          - path: /api/time(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: time
                 port:
                   name: main
