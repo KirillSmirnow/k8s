@@ -6,6 +6,7 @@
 * docker
 * minikube (`brew install minikube`)
 * kubectl (included in minikube)
+* istioctl (`brew install istioctl`)
 * helm (`brew install helm`)
 
 ## Components
@@ -20,7 +21,7 @@
 minikube delete
 minikube start --cpus=8 --memory=8G
 minikube addons enable metrics-server
-minikube addons enable ingress
+istioctl install -y
 ```
 
 ### Build Services

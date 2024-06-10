@@ -3,6 +3,7 @@
 namespace="$1"
 if [[ "$namespace" = "" ]]; then namespace="green"; fi
 kubectl create namespace "$namespace"
+kubectl label namespace "$namespace" istio-injection=enabled
 echo "Namespace=$namespace"
 
 for file in services/*; do
@@ -15,3 +16,5 @@ for file in services/*; do
   fi
   helm "$cmd" "$service" ./helm-chart -f "$file" --namespace="$namespace"
 done
+
+kubectl apply -f istio-external-gateway.yml
