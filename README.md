@@ -51,7 +51,7 @@ minikube tunnel
 ### Check
 
 ```bash
-open http://localhost/api/red/hello
+open http://localhost/api/red/main
 ```
 
 ### Dashboard

@@ -1,0 +1,2 @@
+image: k8s/main
+replicas: 2
