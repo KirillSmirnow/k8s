@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,9 @@ public class MainController {
 
     private final HelloClient helloClient;
 
+    @Value("${namespace}")
+    private String namespace;
+
     @GetMapping("/**")
     @SneakyThrows
     public MainView getMain(HttpServletRequest request) {
@@ -30,6 +34,7 @@ public class MainController {
         return MainView.builder()
                 .instance(INSTANCE)
                 .instanceIpAddress(InetAddress.getLocalHost().getHostAddress())
+                .namespace(namespace)
                 .requestNumber(requestNumber.incrementAndGet())
                 .path(request.getServletPath())
                 .clientIpAddress(request.getRemoteAddr())
@@ -42,6 +47,7 @@ public class MainController {
     public static class MainView {
         private final String instance;
         private final String instanceIpAddress;
+        private final String namespace;
         private final int requestNumber;
         private final String path;
         private final String clientIpAddress;

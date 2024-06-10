@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,9 @@ public class HelloController {
 
     private final TimeClient timeClient;
 
+    @Value("${namespace}")
+    private String namespace;
+
     @GetMapping("/**")
     @SneakyThrows
     public HelloView getHello(HttpServletRequest request) {
@@ -30,6 +34,7 @@ public class HelloController {
         return HelloView.builder()
                 .instance(INSTANCE)
                 .instanceIpAddress(InetAddress.getLocalHost().getHostAddress())
+                .namespace(namespace)
                 .requestNumber(requestNumber.incrementAndGet())
                 .hello("Hello! It's %s now".formatted(timeResponse.getDateTime()))
                 .path(request.getServletPath())
@@ -43,6 +48,7 @@ public class HelloController {
     public static class HelloView {
         private final String instance;
         private final String instanceIpAddress;
+        private final String namespace;
         private final int requestNumber;
         private final String hello;
         private final String path;

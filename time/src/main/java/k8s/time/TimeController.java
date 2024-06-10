@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.Builder;
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,12 +21,16 @@ public class TimeController {
 
     private final AtomicInteger requestNumber = new AtomicInteger();
 
+    @Value("${namespace}")
+    private String namespace;
+
     @GetMapping("/**")
     @SneakyThrows
     public TimeView getTime(HttpServletRequest request) {
         return TimeView.builder()
                 .instance(INSTANCE)
                 .instanceIpAddress(InetAddress.getLocalHost().getHostAddress())
+                .namespace(namespace)
                 .requestNumber(requestNumber.incrementAndGet())
                 .dateTime(LocalDateTime.now())
                 .path(request.getServletPath())
@@ -38,6 +43,7 @@ public class TimeController {
     public static class TimeView {
         private final String instance;
         private final String instanceIpAddress;
+        private final String namespace;
         private final int requestNumber;
         private final LocalDateTime dateTime;
         private final String path;

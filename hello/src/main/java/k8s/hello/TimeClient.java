@@ -18,6 +18,7 @@ public interface TimeClient {
     class TimeView {
         private final String instance;
         private final String instanceIpAddress;
+        private final String namespace;
         private final int requestNumber;
         private final LocalDateTime dateTime;
         private final String path;

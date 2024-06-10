@@ -18,6 +18,7 @@ public interface HelloClient {
     class HelloView {
         private final String instance;
         private final String instanceIpAddress;
+        private final String namespace;
         private final int requestNumber;
         private final String hello;
         private final String path;
@@ -30,6 +31,7 @@ public interface HelloClient {
     class TimeView {
         private final String instance;
         private final String instanceIpAddress;
+        private final String namespace;
         private final int requestNumber;
         private final LocalDateTime dateTime;
         private final String path;

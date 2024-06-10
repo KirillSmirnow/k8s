@@ -17,6 +17,9 @@ spec:
         - name: main
           image: {{.Values.image}}
           imagePullPolicy: IfNotPresent
+          env:
+            - name: NAMESPACE
+              value: {{.Release.Namespace}}
           readinessProbe:
             httpGet:
               port: 8080
