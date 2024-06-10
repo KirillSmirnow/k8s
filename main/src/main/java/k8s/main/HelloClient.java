@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 
-@FeignClient(name = "hello", url = "hello:8080")
+@FeignClient(name = "hello", url = "hello.apps:8080")
 public interface HelloClient {
 
     @GetMapping

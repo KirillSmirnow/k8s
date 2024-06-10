@@ -39,7 +39,7 @@ istioctl install -y
 ```bash
 (
   cd _deploy
-  ./deploy-services.sh ${COLOR:-red}
+  ./deploy-services.sh
 )
 ```
 
@@ -52,7 +52,7 @@ minikube tunnel
 ### Check
 
 ```bash
-open http://localhost/api/red/main
+open http://localhost/api/green/main
 ```
 
 ### Dashboard
