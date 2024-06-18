@@ -1,0 +1,11 @@
+- name: Deploy
+  hosts: all
+  tasks:
+    - name: Include variables
+      include_vars: services.yml
+    - name: Copy manifest
+      template:
+        src: VS.yml
+        dest: /tmp/VS.yml
+    - name: Apply VS
+      shell: /usr/local/bin/kubectl apply -f /tmp/VS.yml

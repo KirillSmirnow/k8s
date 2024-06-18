@@ -1,0 +1,15 @@
+namespaces:
+  active_color: "{{ active_color | default('green') }}"
+  colored: [ blue, green ]
+  uncolored: apps
+services:
+  main:
+    colored: true
+    paths:
+      - /api/main
+      - /api/main-blue
+      - /api/main-green
+    paths_by_namespace:
+      green: [ /api-green/main ]
+      blue: [ /api-blue/main ]
+      red: [ /api-red/main ]

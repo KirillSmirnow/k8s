@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: istio
+spec:
+  gateways:
+    - istio-external-gateway
+  hosts:
+    - '*'
+  http:
+    - match:
+        - uri:
+            prefix: /color
+      directResponse:
+        status: 200
+        body:
+          string: "{{ namespaces.active_color }}"

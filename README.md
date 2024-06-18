@@ -43,6 +43,15 @@ istioctl install -y
 )
 ```
 
+### Configure Ingress
+
+```bash
+(
+  cd ansible
+  ansible-playbook playbook.yml -e "active_color=blue"
+)
+```
+
 ### Tunnel to Host
 
 ```bash
@@ -52,20 +61,11 @@ minikube tunnel
 ### Check
 
 ```bash
-open http://localhost/api/green/main
+open http://localhost/api/main
 ```
 
 ### Dashboard
 
 ```bash
 minikube dashboard
-```
-
-### Switch Default Namespace
-
-```bash
-(
-  cd _deploy
-  ./switch-default-namespace.sh ${COLOR:-green}
-)
 ```
