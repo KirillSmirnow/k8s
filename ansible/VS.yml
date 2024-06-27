@@ -15,3 +15,27 @@ spec:
         status: 200
         body:
           string: "{{ namespaces.active_color }}"
+
+{% for service_name in services %}
+{% set service = services[service_name] %}
+{% for path in service.paths | default %}
+
+{% if service.colored | default %}
+{% set namespace = namespaces.active_color %}
+{% else %}
+{% set namespace = namespaces.uncolored %}
+{% endif %}
+
+    - match:
+        - uri:
+            regex: {{ path }}($|/)(.*)
+      rewrite:
+        uriRegexRewrite:
+          match: {{ path }}($|/)(.*)
+          rewrite: /\2
+      route:
+        - destination:
+            host: {{ service_name }}.{{ namespace }}.svc.cluster.local
+
+{% endfor %}
+{% endfor %}
