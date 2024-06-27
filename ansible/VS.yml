@@ -8,19 +8,29 @@ spec:
   hosts:
     - '*'
   http:
+
+
+{% if namespaces is defined %}
     - match:
         - uri:
             prefix: /color
       directResponse:
         status: 200
         body:
-          string: "{{ namespaces.active_color }}"
+          string: {{ namespaces.active_color }}
+{% endif %}
 
-{% macro route(service, namespace, path) %}
+
+{% macro route(service, namespace, path, namespace_header_match) %}
 {% set regex = path + "($|/)(.*)" %}
     - match:
         - uri:
             regex: {{ regex }}
+{% if namespace_header_match | default %}
+          headers:
+            x-passport-env-color:
+              exact: {{ namespace }}
+{% endif %}
       rewrite:
         uriRegexRewrite:
           match: {{ regex }}
@@ -30,26 +40,30 @@ spec:
             host: {{ service }}.{{ namespace }}.svc.cluster.local
 {% endmacro %}
 
+
 {% for service_name in services %}
 {% set service = services[service_name] %}
 
 {% for path in service.paths | default %}
 
 {% if service.colored | default %}
+{% for namespace in namespaces.colored %}
+{{ route(service_name, namespace, path, namespace_header_match=true) }}
+{% endfor %}
+{% endif %}
+
+{% if service.colored | default %}
 {% set namespace = namespaces.active_color %}
 {% else %}
 {% set namespace = namespaces.uncolored %}
 {% endif %}
-
 {{ route(service_name, namespace, path) }}
 
 {% endfor %}
 
 {% for namespace in service.paths_by_namespace | default %}
 {% for path in service.paths_by_namespace[namespace] %}
-
 {{ route(service_name, namespace, path) }}
-
 {% endfor %}
 {% endfor %}
 

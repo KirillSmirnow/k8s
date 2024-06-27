@@ -7,9 +7,18 @@ services:
     colored: true
     paths:
       - /api/main
-      - /api/main-blue
       - /api/main-green
+      - /api/main-blue
     paths_by_namespace:
-      green: [ /api-green/main ]
-      blue: [ /api-blue/main ]
-      red: [ /api-red/main ]
+      green:
+        - /api-green/main
+        - /api-green/main-green
+        - /api-green/main-blue
+      blue:
+        - /api-blue/main
+        - /api-blue/main-green
+        - /api-blue/main-blue
+  hello:
+    paths: [ /api/hello ]
+  time:
+    paths: [ /api/time ]
