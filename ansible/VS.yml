@@ -18,6 +18,7 @@ spec:
 
 {% for service_name in services %}
 {% set service = services[service_name] %}
+
 {% for path in service.paths | default %}
 
 {% if service.colored | default %}
@@ -38,4 +39,22 @@ spec:
             host: {{ service_name }}.{{ namespace }}.svc.cluster.local
 
 {% endfor %}
+
+{% for namespace in service.paths_by_namespace | default %}
+{% for path in service.paths_by_namespace[namespace] %}
+
+    - match:
+        - uri:
+            regex: {{ path }}($|/)(.*)
+      rewrite:
+        uriRegexRewrite:
+          match: {{ path }}($|/)(.*)
+          rewrite: /\2
+      route:
+        - destination:
+            host: {{ service_name }}.{{ namespace }}.svc.cluster.local
+
+{% endfor %}
+{% endfor %}
+
 {% endfor %}
