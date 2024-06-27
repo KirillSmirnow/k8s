@@ -16,6 +16,20 @@ spec:
         body:
           string: "{{ namespaces.active_color }}"
 
+{% macro route(service, namespace, path) %}
+{% set regex = path + "($|/)(.*)" %}
+    - match:
+        - uri:
+            regex: {{ regex }}
+      rewrite:
+        uriRegexRewrite:
+          match: {{ regex }}
+          rewrite: /\2
+      route:
+        - destination:
+            host: {{ service }}.{{ namespace }}.svc.cluster.local
+{% endmacro %}
+
 {% for service_name in services %}
 {% set service = services[service_name] %}
 
@@ -27,32 +41,14 @@ spec:
 {% set namespace = namespaces.uncolored %}
 {% endif %}
 
-    - match:
-        - uri:
-            regex: {{ path }}($|/)(.*)
-      rewrite:
-        uriRegexRewrite:
-          match: {{ path }}($|/)(.*)
-          rewrite: /\2
-      route:
-        - destination:
-            host: {{ service_name }}.{{ namespace }}.svc.cluster.local
+{{ route(service_name, namespace, path) }}
 
 {% endfor %}
 
 {% for namespace in service.paths_by_namespace | default %}
 {% for path in service.paths_by_namespace[namespace] %}
 
-    - match:
-        - uri:
-            regex: {{ path }}($|/)(.*)
-      rewrite:
-        uriRegexRewrite:
-          match: {{ path }}($|/)(.*)
-          rewrite: /\2
-      route:
-        - destination:
-            host: {{ service_name }}.{{ namespace }}.svc.cluster.local
+{{ route(service_name, namespace, path) }}
 
 {% endfor %}
 {% endfor %}
