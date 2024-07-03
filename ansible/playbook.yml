@@ -1,11 +1,18 @@
-- name: Deploy
-  hosts: all
+- name: Configure external and internal access
+  hosts: all[0]
+  vars_files:
+    - vars/external-access-services.yml
+    - vars/internal-access-services.yml
   tasks:
-    - name: Include variables
-      include_vars: services.yml
-    - name: Copy manifest
+    - name: Generate manifests
       template:
-        src: VS.yml
-        dest: /tmp/VS.yml
-    - name: Apply VS
-      shell: /usr/local/bin/kubectl apply -f /tmp/VS.yml
+        src: templates/{{ item }}
+        dest: /tmp/{{ item }}
+      with_items:
+        - istio-external-gateway-virtual-service.yml
+        - istio-internal-gateway-virtual-service.yml
+    - name: Apply manifests
+      shell: /usr/local/bin/kubectl apply -f /tmp/{{ item }}
+      with_items:
+        - istio-external-gateway-virtual-service.yml
+        - istio-internal-gateway-virtual-service.yml

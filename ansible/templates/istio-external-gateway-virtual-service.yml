@@ -1,0 +1,49 @@
+{% macro service_route(service_name, paths) %}
+{% set inactive_namespace = 'green' if active_namespace == 'blue' else 'blue' %}
+    - route:
+        - destination:
+            host: {{ service_name }}.{{ inactive_namespace }}.svc.cluster.local
+      match:
+{% for path in paths %}
+        - uri:
+            prefix: {{ path }}
+          headers:
+            x-namespace:
+              exact: {{ inactive_namespace }}
+{% endfor %}
+      rewrite:
+        uri: /
+    - route:
+        - destination:
+            host: {{ service_name }}.{{ active_namespace }}.svc.cluster.local
+      match:
+{% for path in paths %}
+        - uri:
+            prefix: {{ path }}
+{% endfor %}
+      rewrite:
+        uri: /
+{% endmacro %}
+
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: istio-external-gateway-virtual-service
+spec:
+  gateways:
+    - istio-external-gateway
+  hosts:
+    - '*'
+  http:
+    - match:
+        - uri:
+            prefix: /color
+      directResponse:
+        status: 200
+        body:
+          string: {{ active_namespace }}
+
+{% for service_name in external_access_services %}
+{{ service_route(service_name, external_access_services[service_name]) }}
+{% endfor %}

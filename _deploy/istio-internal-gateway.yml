@@ -1,13 +1,13 @@
 apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
-  name: istio-external-gateway
+  name: istio-internal-gateway
 spec:
   selector:
     istio: ingressgateway
   servers:
     - hosts:
-        - external.k8s
+        - internal.k8s
       port:
         name: http
         number: 80

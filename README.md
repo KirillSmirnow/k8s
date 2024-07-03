@@ -48,7 +48,7 @@ istioctl install -y
 ```bash
 (
   cd ansible
-  ansible-playbook playbook.yml -e "active_color=blue"
+  ansible-playbook playbook.yml -e "active_namespace=blue"
 )
 ```
 
@@ -61,7 +61,7 @@ minikube tunnel
 ### Check
 
 ```bash
-open http://localhost/api/main
+open http://external.k8s/api/main/a/b/c
 ```
 
 ### Dashboard

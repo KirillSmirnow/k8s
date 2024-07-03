@@ -18,6 +18,10 @@ deploy() {
 
 deploy "main" "green"
 deploy "main" "blue"
-deploy "hello" "apps"
-deploy "time" "apps"
+deploy "hello" "green"
+deploy "hello" "blue"
+deploy "time" "green"
+deploy "time" "blue"
+
 kubectl apply -f istio-external-gateway.yml
+kubectl apply -f istio-internal-gateway.yml

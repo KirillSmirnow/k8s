@@ -1,0 +1,28 @@
+{% macro service_route(service_name, namespace) %}
+    - route:
+        - destination:
+            host: {{ service_name }}.{{ namespace }}.svc.cluster.local
+      match:
+        - uri:
+            prefix: /{{ namespace }}/{{ service_name }}/
+      rewrite:
+        uri: /
+{% endmacro %}
+
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: istio-internal-gateway-virtual-service
+spec:
+  gateways:
+    - istio-internal-gateway
+  hosts:
+    - '*'
+  http:
+
+{% for service_name in internal_access.services %}
+{% for namespace in internal_access.namespaces %}
+{{ service_route(service_name, namespace) }}
+{% endfor %}
+{% endfor %}

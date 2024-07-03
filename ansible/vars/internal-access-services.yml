@@ -1,0 +1,10 @@
+# Services are accessible via http://internal.k8s/{namespace}/{service}/...
+
+internal_access:
+  namespaces:
+    - green
+    - blue
+  services:
+    - main
+    - hello
+    - time

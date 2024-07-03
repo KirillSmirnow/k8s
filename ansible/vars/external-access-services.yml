@@ -1,0 +1,12 @@
+# Services in active namespace are accessible via http://external.k8s/{path_prefix}/...
+# Services in inactive namespace are accessible with header X-Namespace={inactive_namespace}
+
+external_access_services:
+  main:
+    - /main/
+    - /api/main/
+    - /api/v1/main/
+  hello:
+    - /api/hello/
+  time:
+    - /api/time/
