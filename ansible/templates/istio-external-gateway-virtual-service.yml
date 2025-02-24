@@ -30,6 +30,7 @@ apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: istio-external-gateway-virtual-service
+  namespace: gateway
 spec:
   gateways:
     - istio-external-gateway

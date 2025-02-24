@@ -23,5 +23,8 @@ deploy "hello" "blue"
 deploy "time" "green"
 deploy "time" "blue"
 
+deploy "proxy" "proxy"
+
+kubectl create namespace "gateway"
 kubectl apply -f istio-external-gateway.yml
 kubectl apply -f istio-internal-gateway.yml

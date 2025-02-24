@@ -1,0 +1,2 @@
+image: k8s/proxy
+replicas: 1

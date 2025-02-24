@@ -4,7 +4,9 @@ internal_access:
   namespaces:
     - green
     - blue
+    - proxy
   services:
     - main
     - hello
     - time
+    - proxy

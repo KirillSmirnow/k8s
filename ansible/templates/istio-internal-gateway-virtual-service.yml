@@ -14,6 +14,7 @@ apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: istio-internal-gateway-virtual-service
+  namespace: gateway
 spec:
   gateways:
     - istio-internal-gateway

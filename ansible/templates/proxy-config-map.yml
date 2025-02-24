@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: istio
+  namespace: istio-system
+data:
+  mesh: |-
+    extensionProviders:
+      - name: proxy
+        envoyExtAuthzHttp:
+          service: proxy.proxy.svc.cluster.local
+          port: 8080
+          includeRequestHeadersInCheck:
+           - host
+           - x-permit
+           - user-agent
